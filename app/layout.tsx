@@ -15,7 +15,7 @@ const syne = Syne({
 })
 
 export const metadata: Metadata = {
-  title: 'ConnectCGC — Miami Chamber of Commerce',
+  title: 'Connect',
   description:
     'Gestiona tus contactos, eventos y conexiones recomendadas por IA del Miami Chamber of Commerce.',
   generator: 'v0.app',

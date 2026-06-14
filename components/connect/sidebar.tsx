@@ -23,7 +23,7 @@ interface NavLink {
 const PRINCIPAL: NavLink[] = [
   { page: "dashboard", label: "Dashboard", icon: LayoutGrid },
   { page: "contacts", label: "Mis contactos", icon: Users },
-  { page: "recommended", label: "Recomendados", icon: Star, badge: 8 },
+  
   { page: "events", label: "Eventos", icon: Calendar },
 ]
 
@@ -78,7 +78,7 @@ export function Sidebar() {
           </span>
         </div>
         <div className="pl-11 text-[11px] text-sidebar-foreground">
-          Miami Chamber of Commerce
+          Connect with people
         </div>
       </div>
 

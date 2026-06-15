@@ -1,8 +1,9 @@
 "use client"
 
-import { useConnect } from "./connect-context"
-import { supabase } from "@/lib/supabase" // Importamos tu cliente de Supabase
 import { useState } from "react"
+import { useConnect } from "./connect-context"
+// Usamos ruta relativa por seguridad para evitar errores de compilación
+import { supabase } from "../../lib/supabase" 
 
 const labelClass = "text-xs font-medium text-secondary-foreground"
 const fieldClass =
@@ -12,12 +13,10 @@ export function ProfilePage() {
   const { showToast } = useConnect()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // Función para manejar el envío a Supabase
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Capturamos todos los datos del formulario de una vez
     const formData = new FormData(e.currentTarget)
     const data = {
       nombre_completo: formData.get("nombre_completo"),
@@ -32,11 +31,7 @@ export function ProfilePage() {
       ayuda: formData.get("ayuda")
     }
 
-    // Enviamos a Supabase (asumiendo que insertas un nuevo perfil)
-    // NOTA: Si usas autenticación, aquí deberías usar 'upsert' y enviar el ID del usuario
-    const { error } = await supabase
-      .from('users')
-      .insert([data])
+    const { error } = await supabase.from('users').insert([data])
 
     setIsSubmitting(false)
 
@@ -44,14 +39,13 @@ export function ProfilePage() {
       console.error("Error guardando perfil:", error)
       showToast("Hubo un error al guardar el perfil")
     } else {
-      showToast("Perfil actualizado correctamente en base de datos")
+      showToast("Perfil guardado correctamente en la base de datos")
     }
   }
 
   return (
     <div className="max-w-[680px]">
       <div className="mb-5 flex items-center gap-3.5 rounded-xl bg-accent px-4 py-3.5">
-        {/* ... (Barra de progreso igual que antes) ... */}
         <div className="flex-1">
           <div className="mb-1.5 text-[13px] font-semibold text-primary">
             Tu perfil está al 93% — ¡casi completo!
@@ -63,7 +57,6 @@ export function ProfilePage() {
         <div className="whitespace-nowrap text-xs font-semibold text-primary">93%</div>
       </div>
 
-      {/* Convertimos el contenedor en un formulario */}
       <form onSubmit={handleSubmit}>
         <div className="mb-5 rounded-2xl border border-border bg-card p-6">
           <div className="mb-4 border-b border-gray-100 pb-2.5 font-display text-sm font-semibold text-foreground">
@@ -152,7 +145,6 @@ export function ProfilePage() {
             </div>
           </div>
           
-          {/* El botón debe ser de tipo "submit" para disparar el formulario */}
           <button
             type="submit"
             disabled={isSubmitting}

@@ -1,7 +1,8 @@
 "use client"
 
 
-
+import { useState } from "react"
+import { supabase } from "@/lib/supabase" // Importamos tu conexión
 const labelClass = "text-xs font-medium text-secondary-foreground"
 
 const fieldClass =
